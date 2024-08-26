@@ -1,19 +1,17 @@
-// import { quickJS } from "@sebastianwessel/quickjs";
+import { getQuickJS } from "quickjs-emscripten";
 
-// export const runQuickJsCode = async (code) => {
-//   try {
-//     const { createRuntime } = await quickJS();
-//     const { evalCode } = await createRuntime({
-//       allowFetch: false,
-//       allowFs: false,
-//       // env: {
-//       //   MY_ENV_VAR: 'env var value'
-//       // },
-//     });
+export const runQuickJsCode = async (code) => {
+  const QuickJS = await getQuickJS();
+  const vm = QuickJS.newContext();
 
-//     const res = await evalCode(code);
-//     return { result: res };
-//   } catch (error) {
-//     return { error };
-//   }
-// };
+  const result = vm.evalCode(code);
+
+  const res = result.error
+    ? { error: `Error: ${vm.dump(result.error)}` }
+    : { result: vm.dump(result.value) };
+
+  result.error ? result.error.dispose() : result.value.dispose();
+  vm.dispose();
+
+  return res;
+};
