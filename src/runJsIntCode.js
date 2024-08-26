@@ -1,25 +1,21 @@
 import Interpreter from "js-interpreter";
 
 export function runJsIntCode(code) {
-  let result = null;
+  let result = undefined;
 
   const interpreter = new Interpreter(code, function (interpreter, scope) {
-    const wrapper = function (text) {
-      text = text ? text.toString() : "";
-      console.log(text);
-    };
-    interpreter.setProperty(
-      scope,
-      "log",
-      interpreter.createNativeFunction(wrapper)
-    );
+    // const wrapper = function (text) {
+    //   text = text ? text.toString() : "";
+    //   console.log(text);
+    // };
+    // interpreter.setProperty(
+    //   scope,
+    //   "log",
+    //   interpreter.createNativeFunction(wrapper)
+    // );
   });
 
   interpreter.run();
 
-  if (interpreter.value) {
-    result = interpreter.value.toString();
-  }
-
-  return result;
+  return interpreter.value;
 }

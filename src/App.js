@@ -23,7 +23,9 @@ const saferEval = async () => {
 };
 
 const jsIntEval = () => {
-  const code = `var a = 2*2; a;`;
+  // https://neil.fraser.name/software/JS-Interpreter/docs.html
+  // https://neil.fraser.name/software/JS-Interpreter/demos/line.html
+  const code = `var a = ['1-4 Family', 'Multi-Family'].indexOf('1-4 Family'); a;`;
 
   const res = runJsIntCode(code);
   console.log("jsint::: ", res);
