@@ -25,7 +25,17 @@ const saferEval = async () => {
 const jsIntEval = () => {
   // https://neil.fraser.name/software/JS-Interpreter/docs.html
   // https://neil.fraser.name/software/JS-Interpreter/demos/line.html
-  const code = `var a = ['1-4 Family', 'Multi-Family'].indexOf('1-4 Family'); a;`;
+  // const code = `var a = ['1-4 Family', 'Multi-Family'].indexOf('1-4 Family'); a;`;
+  const code = `var a = ['1-4 Family', 'Some', 'Another', 'Multi-Family']
+    .indexOf([
+      {
+          "collateral_type_id":"6szwnTyBH5taZmbczThNvQ",
+          "collateral_type_name":"Multi-Family",
+          "id":"_lu5gdwcux_m09rz0wo",
+          "collateral_description":"",
+          "collateral_amount":""
+      }
+    ][0].collateral_type_name) === -1; a;`
 
   const res = runJsIntCode(code);
   console.log("jsint::: ", res);
